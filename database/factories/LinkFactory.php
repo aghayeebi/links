@@ -19,7 +19,7 @@ class LinkFactory extends Factory
     {
 
         return [
-            'title' => fake()->title,
+            'title' => fake()->word,
             'url'=> fake()->url,
             'description' => fake()->paragraph
         ];
