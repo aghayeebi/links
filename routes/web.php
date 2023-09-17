@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SubmitController;
 use App\Models\Link;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -27,30 +29,12 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::get('/submit', function () {
-    return view('submit');
-});
+Route::get('/submit',[SubmitController::class,'input']);
 
-Route::post('/submit', function (Request $request) {
-
-
-    $data = $request->validate([
-        'title' => 'required|max:255',
-        'url' => 'required|url|max:255',
-        'description' => 'required|max:255'
-    ]);
-
-    $link = new Link();
-    $link->title = $data['title'];
-    $link->url = $data['url'];
-    $link->description  = $data['description'];
-    $link->save();
-
-    return redirect('/');
-});
+Route::post('/submit', [SubmitController::class, 'submit']);
